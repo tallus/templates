@@ -17,11 +17,36 @@
 #       call this function at the end of the script 
 #       so you can call the script directly to get a description of what it does#       ditto for prefix.list_functions
 
-# Functions common to all libraries
+# global.check_desc() is provided so functions can be made to return 
+# a description if given help as an argument
+# Use the following in the function:
+
+# local description="Describe function here \n"
+# if global.check_desc $1; then
+#    cat EOF
+#       insert descrption here
+# EOF
+#    return
+# fi
+
+# prefix.list_functions should normally be a wrapper 
+# around global.list_functions.
+# This returns the decription for all functions that contain a description
+# as per above
+
+# Note printf is used so \n needs to be used at the end of the description 
+# and  whenever a line break is required.
+
+#####################################
+# Functions common to all libraries #
+#####################################
+
+# tolower !
 global.tolower(){
 echo $1 | tr [:upper:] [:lower:]
 }
 
+# return 0 (==true) if fed help
 global.check_desc(){
 local var=$(global.tolower $1)
 if [[ $var == 'help' ]]; then
@@ -29,6 +54,14 @@ if [[ $var == 'help' ]]; then
 else
     return 1
 fi
+}
+
+#List functions library contains
+global.list_functions(){
+for function in $(grep '()' $0| grep -v 'global' | grep -v 'grep'); do
+    function_name=$(echo $function | awk -F '(' '{print $1}')
+    $function_name help
+done
 }
 
 
@@ -45,15 +78,19 @@ EOF
 
 #List functions library contains
 template.list_functions(){ cat <<EOF
-
+        global.list_functions
 EOF
 }
 
 templates.example_function(){
-local description="Describe function here \n"
-if global.check_desc $1; then
-    printf $description
+#description
+if global.check_desc $1; then cat <<EOF
+$FUNCNAME 
+Insert description here
+EOF
+    return
 fi
+#function...
 }
 
 

@@ -49,6 +49,14 @@ template.list_functions(){ cat <<EOF
 EOF
 }
 
+templates.example_function(){
+local description="Describe function here \n"
+if global.check_desc $1; then
+    printf $description
+fi
+}
+
+
 # END OF FILE, FUNCTIONS GO ABOVE THIS LINE
 
 # Don't forget to replace template with actual prefix

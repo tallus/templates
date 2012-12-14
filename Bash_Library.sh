@@ -77,8 +77,8 @@ EOF
 }
 
 #List functions library contains
-template.list_functions(){ cat <<EOF
-        global.list_functions
+template.list_functions(){ 
+    global.list_functions
 EOF
 }
 

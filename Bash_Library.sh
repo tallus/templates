@@ -17,6 +17,20 @@
 #       call this function at the end of the script 
 #       so you can call the script directly to get a description of what it does#       ditto for prefix.list_functions
 
+# Functions common to all libraries
+global.tolower(){
+echo $1 | tr [:upper:] [:lower:]
+}
+
+global.check_desc(){
+local var=$(global.tolower $1)
+if [[ $var == 'help' ]]; then
+    return 0
+else
+    return 1
+fi
+}
+
 
 # Don't forget to replace template with actual prefix
 

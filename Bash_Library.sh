@@ -82,7 +82,7 @@ template.list_functions(){
 EOF
 }
 
-templates.example_function(){
+template.example_function(){
 #description
 if global.check_desc $1; then cat <<EOF
 $FUNCNAME 

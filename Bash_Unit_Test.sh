@@ -3,12 +3,14 @@ source  /path/to/functions/being/tested
 source ./ut_functions
 fail_count=0
 #### usage #####
-# ut.fail                           echo fail and increment fail count
-# ut.pass                           echo pass
-#ut.test_true [function] [input]    calls ut.pass if function  return 0 
-#                                   otherwise ut.fail
-#ut.test_false [function] [input]   calls ut.pass if function does notreturn 0 
-#                                   otherwise ut.fail
+# ut.fail                            echo fail and increment fail count
+# ut.pass                            echo pass
+# ut.test_true [function] [input]    calls ut.pass if function  return 0 
+#                                    otherwise ut.fail
+#ut.test_false [function] [input]    calls ut.pass if function does not return 0
+#                                    otherwise ut.fail unless 127 is returned
+#                                    (i.e. function/command not found)
+#                                    when it calls ut.fail
 #ut.test_output [function] [input] [expected-output]
 #                                   returns 255 if ouput is empty
 #                                   1 if input and output do not match

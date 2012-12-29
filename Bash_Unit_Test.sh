@@ -11,11 +11,14 @@ fail_count=0
 #                                    otherwise ut.fail unless 127 is returned
 #                                    (i.e. function/command not found)
 #                                    when it calls ut.fail
-#ut.test_output [function] [input] [expected-output]
-#                                   returns 255 if ouput is empty
-#                                   1 if input and output do not match
-#                                   0 if input and output do match
-#                                   it does regex match on [expected-output]
+# ut.test_output [function] [input] [expected-output]
+#                                    returns 255 if ouput is empty
+#                                    1 if input and output do not match
+#                                    0 if input and output do match
+#                                    it does regex match on [expected-output]
+# ut.check_answer                    Returns 0 if user enters Y or y, 1 if they
+#                                    enter N or n, other wise prompts for 
+#                                   correct answer
 
 
 

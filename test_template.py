@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import unittest
-import * from  [INSERT MODULE HERE] 
+from  [INSERT MODULE HERE] import *
 class MyTests(unittest.TestCase):
         # pylint: disable=R0904
 

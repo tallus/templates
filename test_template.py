@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import unittest
-import mock
+# import mock
 
 from  [INSERT MODULE HERE] import *
 class MyTests(unittest.TestCase):

@@ -48,3 +48,13 @@ extract*
 .ipynb_checkpoints/
 *.ipynb
 
+clean.py
+.venv
+
+*.bak
+bak*
+
+secret*
+*secret
+scratch*
+out

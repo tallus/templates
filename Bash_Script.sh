@@ -1,4 +1,7 @@
 #!/bin/bash
+set +x
+set -eo pipefail
+
 # this file has the following standard layout
 # CONFIGURATION
 # help function
@@ -10,14 +13,14 @@
 # CONFIGURATION
 
 help(){
-cat <<EOF 
+cat <<EOF
 
 usage: $0 [OPTION]...
 This is the summary of what this script does.
-	
+
 -h			prints this message
 
-This is a bash script. This part is a longer explanation of what it does. 
+This is a bash script. This part is a longer explanation of what it does.
 EOF
 
     # if $1 exists and is a number 0..255 return that otherwise return 0
@@ -34,8 +37,8 @@ EOF
 while getopts "h" option; do		# w: place variable following w in $OPTARG
 	case "$option" in
 		h) help;;
-		[?])  echo "bad option supplied" ; 
-			help;;	
+		[?])  echo "bad option supplied" ;
+			help;;
 	esac
 done
 

@@ -1,6 +1,6 @@
 #!/bin/bash
+set -Eeuo pipefail
 set +x
-set -eo pipefail
 
 # this file has the following standard layout
 # CONFIGURATION

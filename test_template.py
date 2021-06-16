@@ -18,4 +18,4 @@ class MyTests(unittest.TestCase):
         self.assertEquals(True, True)
 
 if __name__ == "__main__":
-        unittest.main()
+    unittest.main()

@@ -1,0 +1,10 @@
+-r requirements.txt
+coverage
+flake8
+flake8-bugbear
+ipython
+mccabe
+pyflakes
+pylint
+green
+black

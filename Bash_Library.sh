@@ -9,7 +9,7 @@
 # finally there will be an actual human readable name
 # eg ts_rt_library-name.sh
 
-# All functions will start with the prefix followed by a dot. e.g. rt.fuction_name
+# All functions will start with the prefix followed by a dot. e.g. rt.function_name
 
 # all libraries will:
 #       include a prefix.describe function 
@@ -29,14 +29,14 @@
 # local description="Describe function here \n"
 # if global.check_desc $1; then
 #    cat EOF
-#       insert descrption here
+#       insert description here
 # EOF
 #    return
 # fi
 
 # prefix.list_functions should normally be a wrapper 
 # around global.list_functions.
-# This returns the decription for all functions that contain a description
+# This returns the description for all functions that contain a description
 # as per above
 
 
@@ -46,12 +46,13 @@
 
 # tolower !
 global.tolower(){
-echo $1 | tr [:upper:] [:lower:]
+echo "$1" | tr '[:upper:]' '[:lower:]'
 }
 
 # return 0 (==true) if fed help
 global.check_desc(){
-local var=$(global.tolower $1)
+local var
+var=$(global.tolower "$1")
 if [[ $var == 'help' ]]; then
     return 0
 else
@@ -61,7 +62,7 @@ fi
 
 #List functions library contains
 global.list_functions(){
-for function in $(grep '()' $0| grep -v 'global' | grep -v 'grep'); do
+for function in $(grep '()' "$0"| grep -v 'global' | grep -v 'grep'); do
     function_name=$(echo $function | awk -F '(' '{print $1}')
     $function_name help
 done
@@ -71,42 +72,37 @@ done
 # Don't forget to replace template with actual prefix
 
 #Describe what this library does
-template.describe(){ 
+# shellcheck disable=SC2120
+template.describe(){
 #description
-if global.check_desc $1; then cat <<EOF
-$FUNCNAME 
-Prints Description of library.
-EOF
+if global.check_desc "$1"; then
     return
 fi
 #function...
 cat <<EOF
-
-This file is intended as a bash library. 
-Calling it directly merely  prints this description.
+This file is intended as a bash library.
+[YOUR DESCRIPTION GOES HERE]
+Calling it directly merely prints this description.
 
 EOF
 }
 
 #List functions library contains
-template.list_functions(){ 
+# shellcheck disable=SC2120
+template.list_functions(){
 #description
-if global.check_desc $1; then cat <<EOF
-$FUNCNAME 
-Prints list of library specific functions.
-EOF
+if global.check_desc "$1"; then
     return
 fi
 #function...
     global.list_functions
-EOF
 }
 
 template.example_function(){
 #description
-if global.check_desc $1; then cat <<EOF
+if global.check_desc "$1"; then cat <<EOF
 $FUNCNAME 
-Insert description here
+Sample noop function # (Insert description here)
 EOF
     return
 fi

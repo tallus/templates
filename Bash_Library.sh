@@ -4,7 +4,7 @@
 # Conventions #
 ###############
 
-# All scripts will start ts_ 
+# All scripts will start ts_
 # All libraries will have a second part that acts as a prefix
 # finally there will be an actual human readable name
 # eg ts_rt_library-name.sh
@@ -12,29 +12,29 @@
 # All functions will start with the prefix followed by a dot. e.g. rt.function_name
 
 # all libraries will:
-#       include a prefix.describe function 
+#       include a prefix.describe function
 #       have a #!/bin/bash line at the top
-#       call this function at the end of the script, 
+#       call this function at the end of the script,
 #       testing for -h or --help
-#       so you can call the script directly 
+#       so you can call the script directly
 #       to get a description of what it does
 #       ditto for prefix.list_functions
 
 
 
-# global.check_desc() is provided so functions can be made to return 
+# global.check_desc() is provided so functions can be made to return
 # a description if given help as an argument
 # Use the following in the function:
 
 # local description="Describe function here \n"
-# if global.check_desc $1; then
+# if global.check_desc "${1-}"; then
 #    cat EOF
 #       insert description here
 # EOF
 #    return
 # fi
 
-# prefix.list_functions should normally be a wrapper 
+# prefix.list_functions should normally be a wrapper
 # around global.list_functions.
 # This returns the description for all functions that contain a description
 # as per above
@@ -46,18 +46,18 @@
 
 # tolower !
 global.tolower(){
-echo "$1" | tr '[:upper:]' '[:lower:]'
+    echo "$1" | tr '[:upper:]' '[:lower:]'
 }
 
 # return 0 (==true) if fed help
 global.check_desc(){
-local var
-var=$(global.tolower "$1")
-if [[ $var == 'help' ]]; then
-    return 0
-else
-    return 1
-fi
+    local var
+    var=$(global.tolower "$1")
+    if [[ $var == 'help' ]]; then
+        return 0
+    else
+        return 1
+    fi
 }
 
 #List functions library contains
@@ -75,7 +75,7 @@ done
 # shellcheck disable=SC2120
 template.describe(){
 #description
-if global.check_desc "$1"; then
+if global.check_desc "${1-}"; then
     return
 fi
 #function...
@@ -90,23 +90,23 @@ EOF
 #List functions library contains
 # shellcheck disable=SC2120
 template.list_functions(){
-#description
-if global.check_desc "$1"; then
-    return
-fi
-#function...
+    #description
+    if global.check_desc "${1-}"; then
+        return
+    fi
+    #function...
     global.list_functions
 }
 
 template.example_function(){
 #description
-if global.check_desc "$1"; then cat <<EOF
-$FUNCNAME 
-Sample noop function # (Insert description here)
-EOF
-    return
-fi
-#function...
+if global.check_desc "${1-}"; then cat <<EOF
+    $FUNCNAME
+    Sample noop function # (Insert description here)
+    EOF
+        return
+    fi
+    #function...
 }
 
 
@@ -116,7 +116,7 @@ fi
 
 # Describe what this library does, and what it contains
 
-if [[ $1 == "-h" || $1 == "--help" ]]; then
+if [ -n "${1-}"] && [[ $1 == "-h" || $1 == "--help" ]]; then
         template.describe
         template.list_functions
 fi
